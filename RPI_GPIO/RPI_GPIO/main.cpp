@@ -86,14 +86,14 @@ int main(int argc, char **argv)
     setup_io();
     // set GPIO pins as input & output
     
-    INP_GPIO(1);    OUT_GPIO(1);
+    INP_GPIO(18);    OUT_GPIO(18);
     // LOOP
     
-    for (rep = 1; rep <= 50 ; rep++) {
+    for (rep = 1; rep <= 10 ; rep++) {
         std::cout << "LED1 " << rep << std::endl;
-        GPIO_SET = 1 << 1;
+        GPIO_SET = 1 << 18;
         system("sleep 0.5");
-        GPIO_CLR = 1 << 1;
+        GPIO_CLR = 1 << 18;
         system("sleep 0.1");
         
     }
