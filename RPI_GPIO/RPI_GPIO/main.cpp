@@ -67,10 +67,9 @@
 //======================================================================
 // GPIO CONTROLLER Macros....
 //======================================================================
-#define GPIO_BASE                (BCM2708_PERI_BASE + 0x200000)
-#define BLOCK_SIZE (4*1024)
-#define PAGE_SIZE (4*1024)
-
+#define GPIO_BASE   (BCM2708_PERI_BASE + 0x200000)
+#define BLOCK_SIZE  (4*1024)
+#define PAGE_SIZE   (4*1024)
 //======================================================================
 // GLOBAL VARIABLES
 //======================================================================
@@ -122,7 +121,6 @@ int main()
         delay(1000);
         GPIO_CLR = 1 << pinNo;
         delay(200);
-        
     }
     
     logMessage("The Program ended.");
@@ -164,11 +162,12 @@ void setup_io()
     gpio = (volatile unsigned *) gpio_map;
 } //setup_io
 
+
 void restore_io() {
     munmap(gpio_map, BLOCK_SIZE); // munmap(void *addr, size_t length)
     // removes memory map from addr to
     //addr+length. it return 0 for success and -1 for error.
     close(mem_fd); // NO need to keep mem_fd open after nmap
-} // end of restore_io
+}  // end of restore_io
 
 
