@@ -1,4 +1,6 @@
 //  main.cpp
+// to compile g++ -o main main.cpp
+// to run - sudo ./main
 //  RPI_GPIO
 //
 //  Created by Jishnu Chakrabarti on 6/29/18.
