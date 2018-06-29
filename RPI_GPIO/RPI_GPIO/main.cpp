@@ -134,6 +134,7 @@ int main()
     }
     
     logMessage("The Program ended.");
+    
     restore_io();
     return 0;
 } // end of main()
