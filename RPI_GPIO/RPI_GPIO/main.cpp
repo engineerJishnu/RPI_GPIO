@@ -100,10 +100,12 @@ static volatile unsigned *gpio;
 //======================================================================
 void setup_io();
 void restore_io();
+void delay(int time);
 //==============================MAIN====================================
 int main(int argc, char **argv)
 {
     int rep;
+    const int pinNo = 18;
     
     system("clear");
     
@@ -111,14 +113,15 @@ int main(int argc, char **argv)
     setup_io();
     // set GPIO pins as input & output
     
-    INP_GPIO(18);    OUT_GPIO(18);
+    INP_GPIO(pinNo);    OUT_GPIO(pinNo);
     // LOOP
     
     for (rep = 1; rep <= 10 ; rep++) {
         std::cout << "LED1 " << rep << std::endl;
-        GPIO_SET = 1 << 18;
-        system("sleep 0.5");
-        GPIO_CLR = 1 << 18;
+        GPIO_SET = 1 << pinNo;
+        //system("sleep 0.5");
+        delay(500);
+        GPIO_CLR = 1 << pinNo;
         system("sleep 0.1");
         
     }
@@ -168,3 +171,6 @@ void restore_io() {
     close(mem_fd); // NO need to keep mem_fd open after nmap
 } // end of restore_io
 
+void delay(int time) {
+    usleep(time * 1000);
+}
