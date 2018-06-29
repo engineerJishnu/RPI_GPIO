@@ -2,9 +2,9 @@
 
 GPIO programming for Raspberry Pi for GertBoard using C++ programming language.
 
-GPIO mean "General Purpose Input/Output" and is a special pin present in 
-the chip that can be set as input or output and used to move a signal 
-high or low (in output mode) or to get the signal current status (in input mode).
+GPIO means "General Purpose Input/Output" and is a special pin present in 
+the chip that can be set as INPUT or OUTPUT and used to move a signal 
+HIGH or LOW (in output mode) or to get the signal current status (in INPUT mode).
 
 Usually these pin are directly managed by kernel modules but there are 
 an easy way to manage these pins also from user space. 
