@@ -2,8 +2,8 @@
 
 GPIO programming for Raspberry Pi for GertBoard using C++ programming language.
 
-        GPIO Pinout of Raspberry Pi 
-        ---------------------------
+        BCM_GPIO Pinout of Raspberry Pi 
+        -------------------------------
         3V3(1)           (2)  5V  
 
         GPIO(3)          (4)  5V    

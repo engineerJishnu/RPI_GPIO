@@ -11,24 +11,47 @@
  *
  RASPBERRY PI GPIO PIN MAPPING
  ------------------------------
+ BCM_GPIO Pinout of Raspberry Pi
+ -------------------------------
+ 3V3(1)           (2)  5V
  
- BCM_GPIO               pin no
- ------------------------------
- 17                     - 0
- 18(PWM)                - 1
- 27(REV2)/21(REV1)      - 2
- 22                     - 3
- 23                     - 4
- 24                     - 5
- 25                     - 6
- 4(CLK)                 - 7
- 7(SPI)                 - CS1    - LED1
- 8(SPI)                 - CS0    - LED2
- 9(SPI)                 - MISO
- 10(SPI)                - MOSI
- 11(SPI)                - SCLK
- 2(I2C)                 - SDA0
- 3(I2C)                 - SCL0
+ GPIO(3)          (4)  5V
+ 
+ GPIO3(5)         (6)  GND
+ 
+ GPIO4(7)         (8)  GPIO14
+ 
+ GND (9)          (10) GPIO15
+ 
+ GPIO17(11)       (12) GPIO18
+ 
+ GPIO27(13)       (14) GND
+ 
+ GPIO22(15)       (16) GPIO23
+ 
+ 3V3   (17)       (18) GPIO24
+ 
+ GPIO10(19)       (20) GND
+ 
+ GPIO9 (21)       (22) GPIO25
+ 
+ GPIO11(23)       (24) GPIO8
+ 
+ GND   (25)       (26) GPIO7
+ 
+ GPIO0 (27)       (28) GPIO1
+ 
+ GPIO5 (29)       (30) GND
+ 
+ GPIO6 (31)       (32) GPIO12
+ 
+ GPIO13(33)       (34) GND
+ 
+ GPIO19(35)       (36) GPIO16
+ 
+ GPIO2 (37)       (38) GPIO20
+ 
+ GND   (39)       (40) GPIO21
  */
 //======================================================================
 // files to be included.
