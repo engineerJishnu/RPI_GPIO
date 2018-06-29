@@ -2,21 +2,7 @@
 
 GPIO programming for Raspberry Pi for GertBoard using C++ programming language.
 
-GPIO means "General Purpose Input/Output" and is a special pin present in 
-the chip that can be set as INPUT or OUTPUT and used to move a signal 
-HIGH or LOW (in output mode) or to get the signal current status (in INPUT mode).
-
-Usually these pin are directly managed by kernel modules but there are 
-an easy way to manage these pins also from user space. 
-
-Modern Architecture allows CPU to operate in two modes......USER MODE and 
-Kernel MODE. Therefore, the virtual memory can be marked as being part 
-of USER SPACE or KERNEL SPACE. 
-
-When running in USER MODE, CPU can access only memory marked as user space 
-whereas running in KERNEL MODE, CPU can access both USER and KERNEL memory space.
-
-        Pinout of Raspberry Pi GPIO
+        GPIO Pinout of Raspberry Pi 
         ---------------------------
         3V3(1)           (2)  5V  
 
@@ -57,3 +43,20 @@ whereas running in KERNEL MODE, CPU can access both USER and KERNEL memory space
         GPIO2 (37)       (38) GPIO20
 
         GND   (39)       (40) GPIO21
+        
+        GPIO stands for "General Purpose Input/Output". It is a special pin found in 
+        the chip that can be set as INPUT or OUTPUT and thus used to make a signal 
+        HIGH or LOW (in output mode) or to get the current signal status (in INPUT mode).
+        
+        program name - main.cpp
+        
+        for compiling and running the program - 
+        (1) If you are in command line mode just type below
+        commands. 
+        (2) In case of GUI mode, you have start the
+        terminal and type the below commands.
+        
+        to compile the program - g++ -o main main.cpp
+        to run the program - sudo ./main        
+        
+        
