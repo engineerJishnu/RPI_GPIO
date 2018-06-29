@@ -54,7 +54,7 @@
         
         so it's BCM_GPIO18 ---> longer leg - LED ---> shorter leg - LED ---> 330 ohms resistor ---> GND pin.
         
-        file name - main.cpp
+        file name - main.cpp & gpio.cpp
         
         for compiling and running the program - 
         (1) If you are in command line mode just type below
@@ -62,7 +62,7 @@
         (2) In case of GUI mode, you have start the
         terminal and type the below commands.
         
-        to compile the program - g++ -o main main.cpp
+        to compile the program - g++ -o main main.cpp gpio.cpp
         to run the program - sudo ./main        
         
         
