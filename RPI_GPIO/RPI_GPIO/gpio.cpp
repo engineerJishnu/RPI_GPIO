@@ -4,7 +4,9 @@
 //
 //  Created by Jishnu Chakrabarti on 6/29/18.
 //  Copyright © 2018 Jishnu Chakrabarti. All rights reserved.
-//
+
+//  Try to strike a balance between keep code simple for
+//  novice programmers but still have reasonable quality code - Gert Jan van Loo
 
 #include "gpio.hpp"
 
@@ -16,7 +18,7 @@ void setup_io()
     //open /dev/mem
     
     if ((mem_fd = open("/dev/mem", O_RDWR|O_SYNC)) < 0 ){
-        printf ("cant open /dev/mem are you in root?if not use sudo.\n");
+        std::cout << "cant open /dev/mem are you in root?if not use sudo." << std::endl;
         exit(-1);
     }
     //======================================================================
@@ -32,7 +34,7 @@ void setup_io()
                      );
     
     if(gpio_map == MAP_FAILED) {
-        printf("mmap error %d\n", (int) gpio_map);
+        std::cout << "mmap error " << (long int)gpio_map << std::endl;
         exit(-1);
     }
     

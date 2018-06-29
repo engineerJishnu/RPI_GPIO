@@ -31,22 +31,22 @@
 #include "gpio.hpp"
 
 //==============================MAIN====================================
-int main(int argc, char **argv)
+int main()
 {
     system("clear");
     
     //Set up gpio pointer for direct register access
     setup_io();
     // set GPIO pins as input & output
-    
-    INP_GPIO(1);    OUT_GPIO(1);
+    int g = 1;
+    INP_GPIO(g);    OUT_GPIO(g);
     // LOOP
     
     for (int rep = 0; rep <= 50 ; rep++) {
         std::cout << "\t" << "LED1 = " << rep << std::endl;
-        GPIO_SET = 1 << 1;
+        GPIO_SET = 1 << g;
         system("sleep 0.5");
-        GPIO_CLR = 1 << 1;
+        GPIO_CLR = 1 << g;
         system("sleep 0.1");
         
     }
