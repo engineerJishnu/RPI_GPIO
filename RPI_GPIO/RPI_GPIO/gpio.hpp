@@ -20,4 +20,5 @@
 // functions 
 void delay(int time);
 
+void logMessage(const char* message);
 #endif /* gpio_hpp */

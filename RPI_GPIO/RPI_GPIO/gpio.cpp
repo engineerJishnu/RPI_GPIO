@@ -13,3 +13,7 @@
 void delay(int time) {
     std::this_thread::sleep_for(std::chrono::milliseconds(time));
 }
+
+void logMessage(const char* message) {
+    std::cout << message << std::endl;
+}

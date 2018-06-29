@@ -1,5 +1,5 @@
 //  main.cpp
-// to compile g++ -o main main.cpp
+// to compile g++ -o main main.cpp gpio.cpp
 // to run - sudo ./main
 //  RPI_GPIO
 //
@@ -98,12 +98,12 @@ int main()
     int pinNo;
     
     system("clear");
-    std::cout << "Welcome to GPIO programming in C++" << std::endl;
-    std::cout << "To stop the program press [CNTRL + C].." << std::endl;
-    std::cout << "Press [ENTER] to start the program..." << std::endl;
+    logMessage("Welcome to GPIO programming in C++");
+    logMessage("To stop the program press [CNTRL + C]..");
+    logMessage("Press [ENTER] to start the program...");
     std::cin.get();
-    std::cout << "The GPIO pinNo available for output are 17,\t18,\t27,\t22,\t23,\t24,\t25" << std::endl;
-    std::cout << "Enter the pin number you wish to set output and press [ENTER]" << std::endl;
+    logMessage("The GPIO pinNo available for output are 17,\t18,\t27,\t22,\t23,\t24,\t25");
+    logMessage("Enter the pin number you wish to set output and press [ENTER]");
     std::cin >> pinNo;
     
     //Set up gpio pointer for direct register access
@@ -117,7 +117,7 @@ int main()
     // LOOP
     
     while(1) {
-        std::cout << "LED1 ON" << std::endl;
+        logMessage("LED ON");
         GPIO_SET = 1 << pinNo;
         delay(1000);
         GPIO_CLR = 1 << pinNo;
@@ -125,7 +125,7 @@ int main()
         
     }
     
-    std::cout << "\nThe program ended.\n";
+    logMessage("The Program ended.");
     restore_io();
     return 0;
 } // end of main()
@@ -138,7 +138,7 @@ void setup_io()
     //open /dev/mem
     
     if ((mem_fd = open("/dev/mem", O_RDWR|O_SYNC)) < 0 ){
-        std::cout << "can't open /dev/mem..." << std::endl;
+        logMessage("can't open /dev/mem...");
         exit(-1);
     }
     //======================================================================
