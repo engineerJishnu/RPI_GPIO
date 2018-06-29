@@ -1,6 +1,6 @@
 # RPI_GPIO
 
-GPIO programming for Raspberry Pi for GertBoard using C++ programming language.
+    GPIO programming for Raspberry Pi for GertBoard using C++ programming language.
 
         BCM_GPIO Pinout of Raspberry Pi 
         -------------------------------
@@ -48,7 +48,13 @@ GPIO programming for Raspberry Pi for GertBoard using C++ programming language.
         the chip that can be set as INPUT or OUTPUT and thus used to make a signal 
         HIGH or LOW (in output mode) or to get the current signal status (in INPUT mode).
         
-        program name - main.cpp
+        Get LED along with resistor say 330 ohms.
+        Connect positive side of LED (longer leg) to BCM_GPIO pin no 18 and the negative side (shorter leg)
+        to 330 ohm resitor to GND pin of Raspberry Pi.
+        
+        so it's BCM_GPIO18 ---> longer leg of LED ---> shorter leg of LED ---> 330 ohms resistor ---> GND pin.
+        
+        file name - main.cpp
         
         for compiling and running the program - 
         (1) If you are in command line mode just type below
