@@ -86,16 +86,18 @@ static volatile unsigned *gpio;
 //======================================================================
 #define INP_GPIO(g) *(gpio + ((g)/10)) &= ~(7<<(((g)%10)*3))
 #define OUT_GPIO(g) *(gpio + ((g)/10)) |=  (1<<(((g)%10)*3))
-#define GPIO_SET   *(gpio + 7)  // Set GPIO high bits 0-31
-#define GPIO_CLR   *(gpio + 10) // Set GPIO low bits 0-31
+#define GPIO_SET    *(gpio + 7)  // Set GPIO high bits 0-31
+#define GPIO_CLR    *(gpio + 10) // Set GPIO low bits 0-31
 //======================================================================
 void setup_io();
 void restore_io();
+void setupGPIO(int pinNo);
+void ledOn(int pinNo);
+void ledOFF(int pinNo);
 //==============================MAIN====================================
 int main()
 {
-    int pinNo;
-    
+    int BCMPinNo;
     system("clear");
     logMessage("Welcome to GPIO programming in C++");
     logMessage("To stop the program press [CNTRL + C]..");
@@ -103,23 +105,20 @@ int main()
     std::cin.get();
     logMessage("The GPIO pinNo available for output are 17,\t18,\t27,\t22,\t23,\t24,\t25");
     logMessage("Enter the pin number you wish to set output and press [ENTER]");
-    std::cin >> pinNo;
+    std::cin >> BCMPinNo;
     
     //Set up gpio pointer for direct register access
     setup_io();
     
     // set GPIO pins as input & output
-    
-    INP_GPIO(pinNo);
-    OUT_GPIO(pinNo);
+    setupGPIO(BCMPinNo);
     
     // LOOP
-    
     while(1) {
-        logMessage("LED ON");
-        GPIO_SET = 1 << pinNo;
+       
+        ledOn(BCMPinNo);
         delay(1000);
-        GPIO_CLR = 1 << pinNo;
+        ledOn(BCMPinNo);
         delay(200);
     }
     
@@ -170,4 +169,70 @@ void restore_io() {
     close(mem_fd); // NO need to keep mem_fd open after nmap
 }  // end of restore_io
 
+void setupGPIO(int pinNo) {
+    INP_GPIO(pinNo);
+    OUT_GPIO(pinNo);
+}
 
+void ledOn(int pinNo) {
+    logMessage("LED ON");
+    GPIO_SET = 1 << pinNo;
+}
+
+void ledOFF(int pinNo) {
+    logMessage("LED OFF");
+    GPIO_CLR = 1 << pinNo;
+}
+
+/*
+ do {
+ printf(" l/L : Walk the LEDS\n");
+ printf(" b/B : Show buttons\n");
+ printf(" m/M : Control the motor\n");
+ printf(" a/A : Read the ADC values\n");
+ printf(" c/C : ADC => Motor\n");
+ printf("( D : Set  the DAC values\n");
+ printf(" q/Q : Quit program\n");
+ key = getchar();
+ switch (key)
+ {
+ case 'l':
+ case 'L':
+ quick_led_demo();
+ break;
+ 
+ case 'b':
+ case 'B':
+ quick_buttons_demo();
+ break;
+ 
+ case 'm':
+ case 'M':
+ quick_pwm_demo();
+ break;
+ 
+ case 'a':
+ case 'A':
+ quick_adc_demo();
+ break;
+ 
+ case 'c':
+ case 'C':
+ adc_pwm_demo();
+ break;
+ 
+ case 0x0A:
+ case 0x0D:
+ // ignore CR/LF
+ break;
+ 
+ default:
+ printf("???\n");
+ }
+ 
+ } while (key!='q' && key!='Q');
+ 
+ // make sure everything is off!
+ leds_off();
+ pwm_off();
+ */
