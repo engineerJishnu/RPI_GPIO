@@ -45,8 +45,8 @@
 // range starting at 0x7E000000. Thus the peripheral advertised here at
 // bus address 0x7Ennnnnn is available at physical address 0x20nnnnnn.
 //======================================================================
-//#define BCM2708_PERI_BASE        0x20000000     // starting from address
-#define BCM2708_PERI_BASE       0x3F000000
+//#define BCM2708_PERI_BASE     0x20000000 /* Pi 1 */
+#define BCM2708_PERI_BASE       0x3F000000 /* Pi 2 & Pi 3 */
 //======================================================================
 // GPIO CONTROLLER Macros....
 //======================================================================
@@ -63,7 +63,7 @@ void *gpio_map;
 //======================================================================
 // I/O access
 //======================================================================
-volatile unsigned *gpio;
+static volatile unsigned *gpio;
 //======================================================================
 // GPIO setup macros - process for the purpose of predefining.....
 // Always use INP_GPIO(x) before using OUT_GPIO(x)
@@ -91,9 +91,9 @@ int main(int argc, char **argv)
     
     for (rep = 1; rep <= 50 ; rep++) {
         std::cout << "LED1 " << rep << std::endl;
-        GPIO_SET = 1 << 7;
+        GPIO_SET = 1 << 1;
         system("sleep 0.5");
-        GPIO_CLR = 1 << 7;
+        GPIO_CLR = 1 << 1;
         system("sleep 0.1");
         
     }
