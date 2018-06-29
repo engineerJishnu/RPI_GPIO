@@ -18,13 +18,13 @@ whereas running in KERNEL MODE, CPU can access both USER and KERNEL memory space
 
         Pinout of Raspberry Pi GPIO
         ---------------------------
-3V3           (1)         (2)  5V  
+        3V3(1)          (2)  5V  
 
-GPIO2      (3)         (4)  5V    
+        GPIO(3)         (4)  5V    
 
-GPIO3      (5)         (6)  GND   
+        GPIO3(5)        (6)  GND   
 
-GPIO4      (7)         (8)  GPIO14
+        GPIO4(7)        (8)  GPIO14
 
 GND         (9)         (10) GPIO15
 
