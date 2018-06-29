@@ -53,15 +53,7 @@
  
  GND   (39)       (40) GPIO21
  */
-//======================================================================
-// files to be included.
-//======================================================================
-#include <iostream>
-#include <unistd.h> // close()
-#include <stdlib.h>
-#include <sys/mman.h> // memory management declaration
-#include <fcntl.h>
-#include <thread>
+#include "gpio.hpp"
 //======================================================================
 // ARM PHYSICAL ADDRESSES BCM2835 - from BROADCOM MANUAL
 //======================================================================
@@ -70,8 +62,8 @@
 // range starting at 0x7E000000. Thus the peripheral advertised here at
 // bus address 0x7Ennnnnn is available at physical address 0x20nnnnnn.
 //======================================================================
-//#define BCM2708_PERI_BASE     0x20000000 /* Pi 1 */
-#define BCM2708_PERI_BASE       0x3F000000 /* Pi 2 & Pi 3 */
+//#define BCM2708_PERI_BASE     0x20000000 /* for Pi 1 */
+#define BCM2708_PERI_BASE       0x3F000000 /* for Pi 2 & Pi 3 */
 //======================================================================
 // GPIO CONTROLLER Macros....
 //======================================================================
@@ -100,33 +92,36 @@ static volatile unsigned *gpio;
 //======================================================================
 void setup_io();
 void restore_io();
-void delay(int time);
 //==============================MAIN====================================
 int main()
 {
-    const int pinNo = 18;
+    int pinNo;
     
     system("clear");
     std::cout << "Welcome to GPIO programming in C++" << std::endl;
     std::cout << "To stop the program press [CNTRL + C].." << std::endl;
     std::cout << "Press [ENTER] to start the program..." << std::endl;
     std::cin.get();
+    std::cout << "The GPIO pinNo available for output are 17,\t18,\t27,\t22,\t23,\t24,\t25" << std::endl;
+    std::cout << "Enter the pin number you wish to set output and press [ENTER]" << std::endl;
+    std::cin >> pinNo;
     
     //Set up gpio pointer for direct register access
     setup_io();
     
     // set GPIO pins as input & output
     
-    INP_GPIO(pinNo);    OUT_GPIO(pinNo);
+    INP_GPIO(pinNo);
+    OUT_GPIO(pinNo);
     
     // LOOP
     
     while(1) {
         std::cout << "LED1 ON" << std::endl;
         GPIO_SET = 1 << pinNo;
-        delay(100);
+        delay(1000);
         GPIO_CLR = 1 << pinNo;
-        delay(500);
+        delay(200);
         
     }
     
@@ -176,6 +171,4 @@ void restore_io() {
     close(mem_fd); // NO need to keep mem_fd open after nmap
 } // end of restore_io
 
-void delay(int time) {
-    std::this_thread::sleep_for(std::chrono::milliseconds(time));
-}
+
