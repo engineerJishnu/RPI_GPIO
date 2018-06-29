@@ -97,28 +97,39 @@ void ledOFF(int pinNo);
 //==============================MAIN====================================
 int main()
 {
-    int BCMPinNo;
+    
+    
     system("clear");
     logMessage("Welcome to GPIO programming in C++");
     logMessage("To stop the program press [CNTRL + C]..");
     logMessage("Press [ENTER] to start the program...");
     std::cin.get();
+    
+    int BCMPinNo;
     logMessage("The GPIO pinNo available for output are 17,\t18,\t27,\t22,\t23,\t24,\t25");
     logMessage("Enter the pin number you wish to set output and press [ENTER]");
     std::cin >> BCMPinNo;
     
+    while(std::cin.fail()) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        std::cout << "\nBad entry. Please enter a NUMBER: " << std::endl;
+        std::cin >> BCMPinNo;
+    }
     //Set up gpio pointer for direct register access
     setup_io();
     
     // set GPIO pins as input & output
-    setupGPIO(BCMPinNo);
     
+    setupGPIO(BCMPinNo);
+    // make sure everything is off!
+    ledOFF(BCMPinNo);
+    delay(2000);
     // LOOP
     while(1) {
-       
         ledOn(BCMPinNo);
         delay(1000);
-        ledOn(BCMPinNo);
+        ledOFF(BCMPinNo);
         delay(200);
     }
     
@@ -186,39 +197,15 @@ void ledOFF(int pinNo) {
 
 /*
  do {
- printf(" l/L : Walk the LEDS\n");
- printf(" b/B : Show buttons\n");
- printf(" m/M : Control the motor\n");
- printf(" a/A : Read the ADC values\n");
- printf(" c/C : ADC => Motor\n");
- printf("( D : Set  the DAC values\n");
- printf(" q/Q : Quit program\n");
- key = getchar();
+ 
+ logMessage(" l/L : Walk the LEDS\n");
+ logMessage(" q/Q : Quit program\n");
+ char* key = getchar();
  switch (key)
  {
  case 'l':
  case 'L':
  quick_led_demo();
- break;
- 
- case 'b':
- case 'B':
- quick_buttons_demo();
- break;
- 
- case 'm':
- case 'M':
- quick_pwm_demo();
- break;
- 
- case 'a':
- case 'A':
- quick_adc_demo();
- break;
- 
- case 'c':
- case 'C':
- adc_pwm_demo();
  break;
  
  case 0x0A:
@@ -233,6 +220,5 @@ void ledOFF(int pinNo) {
  } while (key!='q' && key!='Q');
  
  // make sure everything is off!
- leds_off();
- pwm_off();
+ ledOFF(BCMPinNo);
  */
