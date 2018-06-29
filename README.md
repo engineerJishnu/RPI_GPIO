@@ -49,10 +49,10 @@
         HIGH or LOW (in output mode) or to get the current signal status (in INPUT mode).
         
         Get LED along with resistor say 330 ohms.
-        Connect positive side of LED (longer leg) to BCM_GPIO pin no 18 and the negative side (shorter leg)
-        to 330 ohm resitor to GND pin of Raspberry Pi.
+        Connect positive side of LED (longer leg) to BCM_GPIO pin no 18 and 
+        the negative side (shorter leg) to 330 ohm resitor to GND pin of Raspberry Pi.
         
-        so it's BCM_GPIO18 ---> longer leg of LED ---> shorter leg of LED ---> 330 ohms resistor ---> GND pin.
+        so it's BCM_GPIO18 ---> longer leg - LED ---> shorter leg - LED ---> 330 ohms resistor ---> GND pin.
         
         file name - main.cpp
         
