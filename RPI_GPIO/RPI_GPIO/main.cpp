@@ -57,11 +57,11 @@
 // files to be included.
 //======================================================================
 #include <iostream>
-#include <stdio.h>    // standard I/O
+#include <unistd.h> // close()
 #include <stdlib.h>
 #include <sys/mman.h> // memory management declaration
 #include <fcntl.h>
-#include <unistd.h> // sleep();
+#include <thread>
 //======================================================================
 // ARM PHYSICAL ADDRESSES BCM2835 - from BROADCOM MANUAL
 //======================================================================
@@ -124,10 +124,9 @@ int main()
     while(1) {
         std::cout << "LED1 ON" << std::endl;
         GPIO_SET = 1 << pinNo;
-        //system("sleep 0.5");
-        delay(500);
+        delay(100);
         GPIO_CLR = 1 << pinNo;
-        delay(1000);
+        delay(500);
         
     }
     
@@ -178,5 +177,5 @@ void restore_io() {
 } // end of restore_io
 
 void delay(int time) {
-    usleep(time * 1000);
+    std::this_thread::sleep_for(std::chrono::milliseconds(time));
 }
