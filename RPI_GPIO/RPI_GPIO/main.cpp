@@ -76,6 +76,7 @@
 int mem_fd;
 int g;
 void *gpio_map;
+int BCMPinNo;
 //======================================================================
 // I/O access
 //======================================================================
@@ -94,37 +95,62 @@ void restore_io();
 void setupGPIO(int pinNo);
 void ledOn(int pinNo);
 void ledOFF(int pinNo);
+void inputPin();
 //==============================MAIN====================================
 int main()
 {
-    
-    
     system("clear");
     logMessage("Welcome to GPIO programming in C++");
     logMessage("To stop the program press [CNTRL + C]..");
     logMessage("Press [ENTER] to start the program...");
     std::cin.get();
     
-    int BCMPinNo;
-    logMessage("The GPIO pinNo available for output are 17,\t18,\t27,\t22,\t23,\t24,\t25");
-    logMessage("Enter the pin number you wish to set output and press [ENTER]");
-    std::cin >> BCMPinNo;
-    
-    while(std::cin.fail()) {
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-        std::cout << "\nBad entry. Please enter a NUMBER: " << std::endl;
-        std::cin >> BCMPinNo;
-    }
     //Set up gpio pointer for direct register access
     setup_io();
     
-    // set GPIO pins as input & output
-    
-    setupGPIO(BCMPinNo);
-    // make sure everything is off!
-    ledOFF(BCMPinNo);
-    delay(2000);
+    inputPin();
+    // set GPIO pins as input & output and check the range
+        switch (BCMPinNo)
+        {
+            case 17:
+                setupGPIO(17);
+                ledOFF(17);
+                delay(2000);
+                break;
+            case 18:
+                setupGPIO(18);
+                ledOFF(18);
+                delay(2000);
+                break;
+            case 27:
+                setupGPIO(27);
+                ledOFF(27);
+                delay(2000);
+                break;
+            case 22:
+                setupGPIO(22);
+                ledOFF(22);
+                delay(2000);
+                break;
+            case 23:
+                setupGPIO(23);
+                ledOFF(23);
+                delay(2000);
+                break;
+            case 24:
+                setupGPIO(24);
+                ledOFF(24);
+                delay(2000);
+                break;
+            case 25:
+                setupGPIO(25);
+                ledOFF(25);
+                delay(2000);
+                break;
+            default:
+                logMessage("??? it doesn't matches... please enter the number as advised!");
+                inputPin();
+        }
     // LOOP
     while(1) {
         ledOn(BCMPinNo);
@@ -154,12 +180,12 @@ void setup_io()
     //mmap GPIO
     //======================================================================
     gpio_map = mmap (
-                     NULL,             // void *addr - Any address in our space will do
-                     BLOCK_SIZE,         // int size_t len - MAP LENGHT - 4096
-                     PROT_READ|PROT_WRITE,// int prot - Enable reading & writing in Map memory
-                     MAP_SHARED,        // int flags - Shared with other process
-                     mem_fd,            // int file - File to map
-                     GPIO_BASE        // off_t offset - Offset to GPIO peripheral
+                     NULL,                  // void *addr - Any address in our space will do
+                     BLOCK_SIZE,            // int size_t len - MAP LENGHT - 4096
+                     PROT_READ|PROT_WRITE,  // int prot - Enable reading & writing in Map memory
+                     MAP_SHARED,            // int flags - Shared with other process
+                     mem_fd,                // int file - File to map
+                     GPIO_BASE              // off_t offset - Offset to GPIO peripheral
                      );
     
     if(gpio_map == MAP_FAILED) {
@@ -194,6 +220,19 @@ void ledOn(int pinNo) {
 void ledOFF(int pinNo) {
     logMessage("LED OFF");
     GPIO_CLR = 1 << pinNo;
+}
+
+void inputPin(){
+    logMessage("The GPIO pinNo available for output are 17, 18, 27, 22, 23, 24, 25");
+    logMessage("Enter the pin number you wish to set output and press [ENTER]");
+    std::cin >> BCMPinNo;
+    
+    while(std::cin.fail()) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        std::cout << "\nBad entry. Please enter a NUMBER: " << std::endl;
+        std::cin >> BCMPinNo;
+    }
 }
 
 /*
