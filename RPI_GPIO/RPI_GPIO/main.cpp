@@ -102,27 +102,32 @@ void setup_io();
 void restore_io();
 void delay(int time);
 //==============================MAIN====================================
-int main(int argc, char **argv)
+int main()
 {
-    int rep;
     const int pinNo = 18;
     
     system("clear");
+    std::cout << "Welcome to GPIO programming in C++" << std::endl;
+    std::cout << "To stop the program press [CNTRL + C].." << std::endl;
+    std::cout << "Press [ENTER] to start the program..." << std::endl;
+    std::cin.get();
     
     //Set up gpio pointer for direct register access
     setup_io();
+    
     // set GPIO pins as input & output
     
     INP_GPIO(pinNo);    OUT_GPIO(pinNo);
+    
     // LOOP
     
-    for (rep = 1; rep <= 10 ; rep++) {
-        std::cout << "LED1 " << rep << std::endl;
+    while(1) {
+        std::cout << "LED1 ON" << std::endl;
         GPIO_SET = 1 << pinNo;
         //system("sleep 0.5");
         delay(500);
         GPIO_CLR = 1 << pinNo;
-        system("sleep 0.1");
+        delay(1000);
         
     }
     
@@ -130,6 +135,7 @@ int main(int argc, char **argv)
     restore_io();
     return 0;
 } // end of main()
+
 //======================================================================
 // SET UP MEMORY REGIONS TO ACCESS GPIO.
 //======================================================================
@@ -165,7 +171,7 @@ void setup_io()
 } //setup_io
 
 void restore_io() {
-    munmap(gpio_map, BLOCK_SIZE); // (void *addr, size_t length)
+    munmap(gpio_map, BLOCK_SIZE); // munmap(void *addr, size_t length)
     // removes memory map from addr to
     //addr+length. it return 0 for success and -1 for error.
     close(mem_fd); // NO need to keep mem_fd open after nmap
