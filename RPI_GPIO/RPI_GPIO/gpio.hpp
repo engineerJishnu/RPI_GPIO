@@ -35,11 +35,6 @@
 #define PAGE_SIZE (4*1024)
 
 //======================================================================
-// GLOBAL VARIABLES
-//======================================================================
-int mem_fd;
-void *gpio_map;
-//======================================================================
 // I/O access
 //======================================================================
 volatile unsigned *gpio;
@@ -47,12 +42,18 @@ volatile unsigned *gpio;
 // GPIO setup macros - process for the purpose of predefining.....
 // Always use INP_GPIO(x) before using OUT_GPIO(x)
 //======================================================================
-#define INP_GPIO(g) *(gpio + ((g)/10)) &= ~(7<<(((g)%10)*3))
-#define OUT_GPIO(g) *(gpio + ((g)/10)) |=  (1<<(((g)%10)*3))
-#define GPIO_SET    *(gpio + 7)  // Set GPIO high bits 0-31
-#define GPIO_CLR    *(gpio + 10) // Set GPIO low bits 0-31
+//#define INP_GPIO(g)     *(gpio + ((g)/10)) &= ~(7<<(((g)%10)*3))
+//#define OUT_GPIO(g)     *(gpio + ((g)/10)) |=  (1<<(((g)%10)*3))
+//#define GPIO_SET        *(gpio + 7)  // Set GPIO high bits 0-31
+//#define GPIO_CLR        *(gpio + 10) // Set GPIO low bits 0-31
 //======================================================================
+
 void setup_io();
 void restore_io();
+int INP_GPIO(int g);
+int OUT_GPIO(int g);
+void GPIO_SET();
+void GPIO_CLR();
+
 
 #endif /* gpio_hpp */

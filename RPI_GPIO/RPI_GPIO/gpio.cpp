@@ -9,16 +9,19 @@
 //  novice programmers but still have reasonable quality code - Gert Jan van Loo
 
 #include "gpio.hpp"
-
+//======================================================================
+// GLOBAL VARIABLES
+//======================================================================
+int mem_fd;
+void *gpio_map;
 //======================================================================
 // SET UP MEMORY REGIONS TO ACCESS GPIO.
 //======================================================================
 void setup_io()
 {
     //open /dev/mem
-    
     if ((mem_fd = open("/dev/mem", O_RDWR|O_SYNC)) < 0 ){
-        std::cout << "cant open /dev/mem are you in root?if not use sudo." << std::endl;
+        std::cout << "cant open /dev/mem...." << std::endl;
         exit(-1);
     }
     //======================================================================
@@ -51,3 +54,22 @@ void restore_io() {
     //addr+length. it return 0 for success and -1 for error.
     close(mem_fd); // NO need to keep mem_fd open after nmap
     } // end of restore_io
+
+// GPIO setup macros - process for the purpose of predefining.....
+// Always use INP_GPIO(x) before using OUT_GPIO(x)
+
+int INP_GPIO(int g)
+{
+    return *(gpio + ((g)/10)) &= ~(7<<(((g)%10)*3));
+}
+
+int OUT_GPIO(int g) {
+    return *(gpio + ((g)/10)) |=  (1<<(((g)%10)*3));
+}
+
+void GPIO_SET() {
+    *(gpio + 7);  // Set GPIO high bits 0-31
+}
+void GPIO_CLR() {
+    *(gpio + 10); // Set GPIO low bits 0-31
+}

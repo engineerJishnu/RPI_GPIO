@@ -38,15 +38,14 @@ int main()
     //Set up gpio pointer for direct register access
     setup_io();
     // set GPIO pins as input & output
-    int g = 1;
-    INP_GPIO(g);    OUT_GPIO(g);
+    INP_GPIO(1);    OUT_GPIO(1);
     // LOOP
     
     for (int rep = 0; rep <= 50 ; rep++) {
         std::cout << "\t" << "LED1 = " << rep << std::endl;
-        GPIO_SET = 1 << g;
+        GPIO_SET = 1 << 1;
         system("sleep 0.5");
-        GPIO_CLR = 1 << g;
+        GPIO_CLR = 1 << 1;
         system("sleep 0.1");
         
     }
