@@ -237,7 +237,6 @@ void inputPin(){
 
 /*
  do {
- 
  logMessage(" l/L : Walk the LEDS\n");
  logMessage(" q/Q : Quit program\n");
  char* key = getchar();
