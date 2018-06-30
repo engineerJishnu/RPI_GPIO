@@ -76,6 +76,7 @@
 int mem_fd;
 int g;
 void *gpio_map;
+char key;
 int BCMPinNo;
 //======================================================================
 // I/O access
@@ -101,7 +102,6 @@ int main()
 {
     system("clear");
     logMessage("Welcome to GPIO programming in C++");
-    logMessage("To stop the program press [CNTRL + C]..");
     logMessage("Press [ENTER] to start the program...");
     std::cin.get();
     
@@ -114,54 +114,49 @@ int main()
         {
             case 17:
                 setupGPIO(17);
-                ledOFF(17);
-                delay(2000);
                 break;
             case 18:
                 setupGPIO(18);
-                ledOFF(18);
-                delay(2000);
                 break;
             case 27:
                 setupGPIO(27);
-                ledOFF(27);
-                delay(2000);
                 break;
             case 22:
                 setupGPIO(22);
-                ledOFF(22);
-                delay(2000);
                 break;
             case 23:
                 setupGPIO(23);
-                ledOFF(23);
-                delay(2000);
                 break;
             case 24:
                 setupGPIO(24);
-                ledOFF(24);
-                delay(2000);
                 break;
             case 25:
                 setupGPIO(25);
-                ledOFF(25);
-                delay(2000);
                 break;
             default:
                 logMessage("??? it doesn't matches... please enter the number as advised!");
                 inputPin();
         }
     // LOOP
-    while(1) {
-        ledOn(BCMPinNo);
-        delay(1000);
-        ledOFF(BCMPinNo);
-        delay(200);
-    }
+    do {
+        logMessage(" b/B : Blink the LEDS for 10 times\n");
+        logMessage(" q/Q : Quit program, but to stop the program in between press CNTRL+C.");
+        key = getchar();
+        switch (key)
+        {
+            case 'b':
+            case 'B':
+                quick_led_demo();
+                break;
+            default:
+                logMessage("What do you want to do????");
+        }
+        
+    } while (key!='q' && key!='Q');
     
-    logMessage("The Program ended.");
-    
+    ledOFF(BCMPinNo); // switchoff led
     restore_io();
+    logMessage("The Program ended.");
     return 0;
 } // end of main()
 
@@ -235,29 +230,13 @@ void inputPin(){
     }
 }
 
-/*
- do {
- logMessage(" l/L : Walk the LEDS\n");
- logMessage(" q/Q : Quit program\n");
- char* key = getchar();
- switch (key)
- {
- case 'l':
- case 'L':
- quick_led_demo();
- break;
- 
- case 0x0A:
- case 0x0D:
- // ignore CR/LF
- break;
- 
- default:
- printf("???\n");
- }
- 
- } while (key!='q' && key!='Q');
- 
- // make sure everything is off!
- ledOFF(BCMPinNo);
- */
+void quick_led_demo(){
+    int count = 0;
+    while( count < 10) {
+        ledOn(BCMPinNo);
+        delay(1000);
+        ledOFF(BCMPinNo);
+        delay(200);
+        count++;
+    }
+}

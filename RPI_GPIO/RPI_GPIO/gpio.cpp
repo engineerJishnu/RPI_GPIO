@@ -17,3 +17,4 @@ void delay(int time) {
 void logMessage(const char* message) {
     std::cout << message << std::endl;
 }
+
