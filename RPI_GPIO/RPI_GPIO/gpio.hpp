@@ -24,6 +24,5 @@ void delay(int time);
 //======================================================================
 void logMessage(const char* message);
 //======================================================================
-//std::vector<int> vPins = {17,18,27,22,23,24,25};
 void quick_led_demo();
 #endif /* gpio_hpp */

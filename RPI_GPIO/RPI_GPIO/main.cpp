@@ -108,44 +108,52 @@ int main()
     //Set up gpio pointer for direct register access
     setup_io();
     
-    inputPin();
-    // set GPIO pins as input & output and check the range
-        switch (BCMPinNo)
-        {
-            case 17:
-                setupGPIO(17);
-                break;
-            case 18:
-                setupGPIO(18);
-                break;
-            case 27:
-                setupGPIO(27);
-                break;
-            case 22:
-                setupGPIO(22);
-                break;
-            case 23:
-                setupGPIO(23);
-                break;
-            case 24:
-                setupGPIO(24);
-                break;
-            case 25:
-                setupGPIO(25);
-                break;
-            default:
-                logMessage("??? it doesn't matches... please enter the number as advised!");
-                inputPin();
-        }
     // LOOP
+    logMessage(" b/B : Blink the LEDS for 10 times\n");
+    logMessage(" q/Q : Quit program, but to stop the program in between press CNTRL+C.");
     do {
-        logMessage(" b/B : Blink the LEDS for 10 times\n");
-        logMessage(" q/Q : Quit program, but to stop the program in between press CNTRL+C.");
         key = getchar();
         switch (key)
         {
             case 'b':
             case 'B':
+                inputPin();
+                // set GPIO pins as input & output and check the range
+                switch (BCMPinNo)
+            {
+                case 17:
+                    setupGPIO(17);
+                    break;
+                case 18:
+                    setupGPIO(18);
+                    break;
+                case 27:
+                    setupGPIO(27);
+                    break;
+                case 22:
+                    setupGPIO(22);
+                    break;
+                case 23:
+                    setupGPIO(23);
+                    break;
+                case 24:
+                    setupGPIO(24);
+                    break;
+                case 25:
+                    setupGPIO(25);
+                    break;
+                case 2:
+                case 4:
+                case 6:
+                case 10:
+                case 12:
+                    logMessage("??? it doesn't matches... please enter the number as advised!");
+                    inputPin();
+                    break;
+                default:
+                    logMessage("??? it doesn't matches... please enter the number as advised!");
+                    inputPin();
+            }
                 quick_led_demo();
                 break;
             default:
@@ -218,8 +226,15 @@ void ledOFF(int pinNo) {
 }
 
 void inputPin(){
-    logMessage("The GPIO pinNo available for output are 17, 18, 27, 22, 23, 24, 25");
-    logMessage("Enter the pin number you wish to set output and press [ENTER]");
+    std::vector<int> vPins = {17,18,27,22,23,24,25};
+    std::vector <int> :: iterator i;
+    logMessage("The GPIO pinNo available for output are ");
+
+    for (i = vPins.begin(); i != vPins.end(); i++) {
+        std::cout << *i << '\t';
+    }
+    
+    logMessage("\nEnter the pin number you wish to set output and press [ENTER]");
     std::cin >> BCMPinNo;
     
     while(std::cin.fail()) {
